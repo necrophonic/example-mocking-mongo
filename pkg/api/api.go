@@ -41,8 +41,8 @@ func (a *API) ThingHandler(w http.ResponseWriter, r *http.Request) {
 	// For arbitrary reasons, this handler just sets
 	// and then retrieves a record.
 	document := bson.D{
-		{"_id", "some-id"},
-		{"name", "some-name"},
+		{Key: "_id", Value: "some-id"},
+		{Key: "name", Value: "some-name"},
 	}
 
 	insertedID, err := a.DBClient.Insert(ctx, database, collection, document)
@@ -52,7 +52,7 @@ func (a *API) ThingHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var fetched map[string]interface{}
-	if err := a.DBClient.Fetch(ctx, database, collection, bson.D{{"_id", insertedID}}, &fetched); err != nil {
+	if err := a.DBClient.Fetch(ctx, database, collection, bson.D{{Key: "_id", Value: insertedID}}, &fetched); err != nil {
 		http.Error(w, "failed to fetch", http.StatusInternalServerError)
 		return
 	}

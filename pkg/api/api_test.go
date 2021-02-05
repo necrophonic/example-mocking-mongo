@@ -49,8 +49,8 @@ func TestThingHandler(t *testing.T) {
 	a.ThingHandler(rr, req)
 
 	expectedInserted := bson.D{
-		{"_id", "some-id"},
-		{"name", "some-name"},
+		{Key: "_id", Value: "some-id"},
+		{Key: "name", Value: "some-name"},
 	}
 
 	assert.Equal(t, http.StatusOK, rr.Code)
